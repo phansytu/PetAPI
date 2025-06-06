@@ -57,6 +57,15 @@ public class JwtTokenHelper {
                 .compact();
 
     }
+    //lay email tu token
+    public String getSubjectFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
 
 
     //  Kiểm tra token hợp lệ

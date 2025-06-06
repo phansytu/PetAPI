@@ -35,7 +35,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
             if (jwtTokenHelper.validateToken(token)) {
-                String email = jwtTokenHelper.generateTokenEmail(token);
+                String email = jwtTokenHelper.getSubjectFromToken(token);
                 //ưu tiên kiểm tra admin trước
                 Optional<Admin> adminOtp =adminRepo.findByEmail(email);
                 if(adminOtp.isPresent()){

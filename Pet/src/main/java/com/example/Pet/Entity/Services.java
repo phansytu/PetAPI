@@ -2,6 +2,7 @@ package com.example.Pet.Entity;
 
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class Services {
     private Integer duration;    // Thời lượng (phút) ví dụ 30 phút
 
     private Boolean active = true;
-
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     public Integer getId() {
