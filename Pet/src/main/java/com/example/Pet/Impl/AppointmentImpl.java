@@ -10,11 +10,12 @@ import com.example.Pet.Service.AppointmentService;
 import com.example.Pet.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class AppointmentImpl implements AppointmentService {
     @Autowired private AppointmentRepo appointmentRepo;
     @Autowired private UserRepo userRepo;

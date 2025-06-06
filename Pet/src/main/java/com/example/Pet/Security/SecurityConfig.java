@@ -35,8 +35,8 @@
                             .requestMatchers(HttpMethod.POST, "/api/services/**").hasRole("ADMIN") // quyền được thêm
                             .requestMatchers(HttpMethod.PUT, "/api/services/**").hasRole("ADMIN") // quyền sửa
                             .requestMatchers(HttpMethod.DELETE, "/api/services/**").hasRole("ADMIN") // quyền xóa
-                            .requestMatchers(HttpMethod.GET, "/api/bookings/**").hasAnyRole("CUSTOMER", "ADMIN")
-                            .requestMatchers(HttpMethod.POST, "/api/bookings/**").hasRole("CUSTOMER")
+                            .requestMatchers(HttpMethod.GET, "/api/appointment/**").hasAnyRole("CUSTOMER", "ADMIN")
+                            .requestMatchers(HttpMethod.POST, "/api/appointment/**").hasRole("CUSTOMER")
                             .requestMatchers("/api/admin/login").permitAll()
 
                             .anyRequest().authenticated()

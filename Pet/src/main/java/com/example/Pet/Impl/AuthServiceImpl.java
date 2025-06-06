@@ -46,7 +46,7 @@
                 throw new RuntimeException("OTP expired");
 
             // Issue JWT
-            return jwtTokenHelper.generateToken(phoneNumber);
+            return jwtTokenHelper.generateTokenPhone(phoneNumber);
         }
 
     }

@@ -23,11 +23,10 @@ public class JwtTokenHelper {
         return Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    // ✅ Tạo token từ phone
-    public String generateToken(String phoneNumber) {
+    //  Tạo token từ phone
+    public String generateTokenPhone(String phoneNumber) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
-
         return Jwts.builder()
                 .setSubject(phoneNumber)
                 .setIssuedAt(now)
@@ -36,8 +35,7 @@ public class JwtTokenHelper {
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
-
-    // ✅ Lấy phone từ token
+    //  Lấy phone từ token
     public String getPhoneNumberFromToken(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -46,8 +44,22 @@ public class JwtTokenHelper {
                 .getBody()
                 .getSubject();
     }
+    //tạo token từ email
+    public String generateTokenEmail(String email){
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + jwtExpirationMs);
+        return Jwts.builder()
+                .setSubject(email)
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+                .setId(UUID.randomUUID().toString())
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
 
-    // ✅ Kiểm tra token hợp lệ
+    }
+
+
+    //  Kiểm tra token hợp lệ
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()
