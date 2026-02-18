@@ -10,10 +10,10 @@ import java.util.List;
 
 public interface PetRepo extends JpaRepository<Pet, Integer> {
     List<Pet> findAllByOwner(User owner);
-    @Query("SELECT p FROM Pet p WHERE p.weight = :weight")
+    @Query("SELECT p FROM Pet p WHERE p.weight = :weight AND p.owner = :owner")
     List<Pet> searchByWeight(@Param("weight") Double weight,@Param("owner") User owner);
-    @Query("SELECT p FROM Pet p WHERE p.type LIKE %:key%")
+    @Query("SELECT p FROM Pet p WHERE p.type LIKE %:key% AND p.owner = :owner")
     List<Pet> searchByType(@Param("key") String type,@Param("owner") User owner);
-    @Query("SELECT p FROM Pet p WHERE p.nameHome LIKE %:keyName%")
+    @Query("SELECT p FROM Pet p WHERE p.nameHome LIKE %:keyName% AND p.owner = :owner")
     List<Pet> searchByNameHome(@Param("keyName") String nameHome,@Param("owner") User owner);
 }

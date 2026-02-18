@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -96,4 +97,7 @@ public class Pet {
     public void setWeight(double wight) {
         this.weight = wight;
     }
+
+    @OneToMany(mappedBy = "pet")
+    private List<Appointment> appointments;
 }

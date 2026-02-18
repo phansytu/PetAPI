@@ -10,11 +10,13 @@ import com.example.Pet.Service.AppointmentService;
 import com.example.Pet.exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
+
 @Service
 public class AppointmentImpl implements AppointmentService {
     @Autowired private AppointmentRepo appointmentRepo;
@@ -28,7 +30,7 @@ public class AppointmentImpl implements AppointmentService {
     @Override
     public AppointmentDto create(AppointmentDto appointmentDto) {
         Appointment appointment = new Appointment();
-        appointment.setAppointmentDate(appointment.getAppointmentDate());
+        appointment.setAppointmentDate(appointmentDto.getAppointmentDate());
 
         appointment.setStatus(appointmentDto.getStatus());
         appointment.setUser(userRepo.findById(appointmentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User", "id", appointmentDto.getUserId())));
@@ -69,8 +71,17 @@ public class AppointmentImpl implements AppointmentService {
 
     @Override
     public List<AppointmentDto> getAll() {
-        return appointmentRepo.findAll().stream()
-                .map(a -> modelMapper.map(a, AppointmentDto.class))
-                .collect(Collectors.toList());
+        return List.of();
     }
+
+    @Override
+    public Page<AppointmentDto> getAll(int page, int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Appointment> appointments = appointmentRepo.findAll(pageable);
+
+        return appointments.map(a -> modelMapper.map(a, AppointmentDto.class));
+    }
+
 }

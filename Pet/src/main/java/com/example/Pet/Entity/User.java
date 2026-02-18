@@ -2,6 +2,7 @@ package com.example.Pet.Entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -71,4 +72,7 @@ public class User {
     public void setOtpGeneratedAt(LocalDateTime otpGeneratedAt) {
         this.otpGeneratedAt = otpGeneratedAt;
     }
+
+    @OneToMany(mappedBy = "user")
+    private List<Appointment> appointments;
 }

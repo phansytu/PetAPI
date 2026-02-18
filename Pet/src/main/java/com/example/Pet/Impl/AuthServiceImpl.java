@@ -4,6 +4,7 @@
     import com.example.Pet.Reponsitories.UserRepo;
     import com.example.Pet.Security.JwtTokenHelper;
     import com.example.Pet.Service.AuthService;
+    import com.example.Pet.exception.ResourceNotFoundException;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
     import java.time.LocalDateTime;
@@ -33,6 +34,18 @@
             // TODO: gửi OTP qua SMS service; tạm log ra console:
             System.out.println("OTP for " + phoneNumber + ": " + otp);
         }
+        @Override
+        public void loginRequestOtp(String phoneNumber){
+            User user = userRepo.findByPhoneNumber(phoneNumber)
+                    .orElseThrow(() -> new RuntimeException("so dien thoai chua dang ky"));
+            String otp = String.valueOf((int)(Math.random() * 900000) + 100000);
+            user.setOtp(otp);
+            user.setOtpGeneratedAt(LocalDateTime.now());
+            userRepo.save(user);
+
+            // TODO: gửi OTP qua SMS service; tạm log ra console:
+            System.out.println("OTP for " + phoneNumber + ": " + otp);
+        }
 
         @Override
         public String verifyOtp(String phoneNumber, String otp) {
@@ -48,5 +61,6 @@
             // Issue JWT
             return jwtTokenHelper.generateTokenPhone(phoneNumber);
         }
+
 
     }

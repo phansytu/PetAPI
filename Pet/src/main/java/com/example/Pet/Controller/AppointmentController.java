@@ -5,6 +5,7 @@ import com.example.Pet.Payload.AppointmentDto;
 import com.example.Pet.Service.AppointmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,9 @@ public class AppointmentController {
         return ResponseEntity.ok(new ApiResponse("Da xoa thanh cong", true));
     }
     @GetMapping("/")
-    public ResponseEntity<List<AppointmentDto>> getAll(){
-        return ResponseEntity.ok(appointmentService.getAll());
+    public ResponseEntity<Page<AppointmentDto>> getAll(@RequestParam(defaultValue = "0") int page,
+                                                       @RequestParam(defaultValue = "10") int size){
+        return ResponseEntity.ok(appointmentService.getAll(page, size));
     }
     @GetMapping("/{appointmentId}")
     public ResponseEntity<AppointmentDto> getByIdAppointment(@PathVariable Integer appointmentId){

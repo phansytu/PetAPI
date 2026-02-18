@@ -12,11 +12,17 @@
         @Autowired
         private AuthService authService;
 
-        @PostMapping("/request-otp")
+        @PostMapping("/signin")
         public ResponseEntity<String> requestOtp(
                 @RequestParam String fullName,
                 @RequestParam String phoneNumber) {
             authService.requestOtp(fullName, phoneNumber);
+            return ResponseEntity.ok("OTP sent");
+        }
+        @PostMapping("/login")
+        public ResponseEntity<String> loginRequestOtp(
+                @RequestParam String phoneNumber) {
+            authService.loginRequestOtp(phoneNumber);
             return ResponseEntity.ok("OTP sent");
         }
 
