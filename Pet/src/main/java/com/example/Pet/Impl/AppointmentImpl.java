@@ -14,9 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 @Service
 public class AppointmentImpl implements AppointmentService {
     @Autowired private AppointmentRepo appointmentRepo;
@@ -69,10 +66,6 @@ public class AppointmentImpl implements AppointmentService {
         return modelMapper.map(appointment, AppointmentDto.class);
     }
 
-    @Override
-    public List<AppointmentDto> getAll() {
-        return List.of();
-    }
 
     @Override
     public Page<AppointmentDto> getAll(int page, int size) {
